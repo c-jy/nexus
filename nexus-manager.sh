@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# curl -O https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/nexus-manager.sh && chmod +x nexus-manager.sh && ./nexus-manager.sh
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -184,7 +185,7 @@ start_prover() {
         fi
     fi
 
-    tmux new-session -d -s "$SESSION_NAME" "cd '$NEXUS_HOME' && ./prover beta.orchestrator.nexus.xyz"
+    tmux new-session -d -s "$SESSION_NAME" "cd '$NEXUS_HOME' && nohup ./prover beta.orchestrator.nexus.xyz & "
     echo -e "${GREEN}Prover 已启动，选择2可查看运行日志${NC}"
 }
 
