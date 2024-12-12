@@ -17,6 +17,7 @@ NEXUS_HOME="/home/ubuntu/.nexus"
 PROVER_ID_FILE="$NEXUS_HOME/prover-id"
 SESSION_NAME="nexus-prover"
 function main() {
+    killProcess
     while true; do
         start_monitor
 
@@ -57,23 +58,21 @@ function send_msg() {
 
 function killProcess() {
     # 查询指定名称的进程并杀掉
-    PROCESS_NAME="monitor_nexus"
+    process_name="monitor_nexus"
     
-    # 查询进程ID
-    PID=$(pgrep "${PROCESS_NAME}")
+    # 使用pgrep获取所有匹配的进程ID
+    pids=$(ps -ef | grep "$process_name" | grep -v grep | awk '{print $2}')
     
-    # 检查进程是否存在
-    if [ ! -z "$PID" ]; then
-        # 杀掉进程
-        kill $PID
-        # 检查是否杀掉
-        if kill -0 $PID > /dev/null 2>&1; then
-            echo "进程 $PID 未能被杀掉。"
-        else
-            echo "进程 $PID 已被杀掉。"
-        fi
+    if [ -z "$pids" ]; then
+        echo "没有发现进程 '${process_name}'"
     else
-        echo "没有找到进程 $PROCESS_NAME。"
+        echo "找到的进程ID: ${pids}"
+        kill $pids 2>/dev/null
+        if [ $? -eq 0 ]; then
+            echo "已杀死进程 ${process_name}（ID: ${pids}）"
+        else
+            echo "无法杀死进程 ${process_name}（ID: ${pids}）"
+        fi
     fi
 }
 main 
