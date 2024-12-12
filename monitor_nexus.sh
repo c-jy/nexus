@@ -10,7 +10,7 @@
 # fi
 
 ip=$(curl ifconfig.me)
-sleep_time=60
+sleep_time=120
 env=$ip
 count=0
 NEXUS_HOME="/home/ubuntu/.nexus"
@@ -39,7 +39,8 @@ function start_monitor() {
         if [ $count -gt 3 ]; then
             send_msg "$env 服务器 $count 次检查cpu使用率低于60, 重新启动"
             if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-                tmux kill-session -t "nexus-prover"
+                tmux kill-session -t "$SESSION_NAME"
+                sudo tmux kill-session -t "$SESSION_NAME"
             fi
             cd "$NEXUS_HOME" || exit
             tmux new-session -d -s "$SESSION_NAME" "cd '$NEXUS_HOME' && ./prover beta.orchestrator.nexus.xyz"
