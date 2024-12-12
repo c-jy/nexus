@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#wget -O monitor_nexus.sh https://raw.githubusercontent.com/c-jy/nillion/refs/heads/main/monitor_nexus.sh && sed -i 's/\r//' monitor_nexus.sh && chmod +x monitor_nexus.sh && sudo nohup ./monitor_nexus.sh > monitor_nexus_log.log 2>&1 &
+#wget -O monitor_nexus.sh https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/monitor_nexus.sh && sed -i 's/\r//' monitor_nexus.sh && chmod +x monitor_nexus.sh && sudo nohup ./monitor_nexus.sh > monitor_nexus_log.log 2>&1 &
 
 
 # 确保脚本以 root 权限运行
@@ -10,7 +10,7 @@
 # fi
 
 ip=$(curl ifconfig.me)
-sleep_time=180
+sleep_time=60
 env=$ip
 count=0
 NEXUS_HOME="/home/ubuntu/.nexus"
