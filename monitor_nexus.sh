@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#wget -O monitor_nexus.sh https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/monitor_nexus.sh && sed -i 's/\r//' monitor_nexus.sh && chmod +x monitor_nexus.sh && sudo nohup ./monitor_nexus.sh > monitor_nexus_log.log 2>&1 &
+#wget -O monitor_nexus.sh https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/monitor_nexus.sh && sed -i 's/\r//' monitor_nexus.sh && chmod +x monitor_nexus.sh && nohup ./monitor_nexus.sh > monitor_nexus_log.log 2>&1 &
 
 
 # 确保脚本以 root 权限运行
@@ -38,8 +38,9 @@ function start_monitor() {
         if [ $count -gt 3 ]; then
             send_msg "$env 服务器 $count 次检查cpu使用率低于60, 重新启动"
             if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-                tmux kill-session -t "$SESSION_NAME"
+                tmux kill-session -t "nexus-prover"
             fi
+            cd "$NEXUS_HOME" || exit
             tmux new-session -d -s "$SESSION_NAME" "cd '$NEXUS_HOME' && ./prover beta.orchestrator.nexus.xyz"
 
             count=0
