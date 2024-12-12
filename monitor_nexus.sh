@@ -67,7 +67,7 @@ function killProcess() {
         echo "没有发现进程 '${process_name}'"
     else
         echo "找到的进程ID: ${pids}"
-        kill $pids 2>/dev/null
+        sudo kill -9 $pids 2>/dev/null
         if [ $? -eq 0 ]; then
             echo "已杀死进程 ${process_name}（ID: ${pids}）"
         else
