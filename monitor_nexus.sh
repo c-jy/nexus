@@ -17,7 +17,6 @@ NEXUS_HOME="/home/ubuntu/.nexus"
 PROVER_ID_FILE="$NEXUS_HOME/prover-id"
 SESSION_NAME="nexus-prover"
 function main() {
-    killProcess
     while true; do
         start_monitor
 
@@ -63,6 +62,8 @@ function killProcess() {
     
     # 使用pgrep获取所有匹配的进程ID
     pids=$(ps -ef | grep "$process_name" | grep -v grep | awk '{print $2}')
+    # ps -ef | grep "monitor_nexus" | awk '{print $2}' | xargs kill -9
+    # ps -ef | grep "nexus-prover" | awk '{print $2}' | xargs kill -9
     
     if [ -z "$pids" ]; then
         echo "没有发现进程 '${process_name}'"
