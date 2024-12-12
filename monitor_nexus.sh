@@ -27,9 +27,11 @@ function main() {
 function start_monitor() {
     cpu_usage=$(top -b -n 1 | grep "Cpu(s)" | awk '{print $2 + $4}')
 
-    echo "CPU Usage: $cpu_usage%"
+    integer_number=$(echo "$cpu_usage/1" | bc)
 
-    if [ $cpu_usage -gt 60 ]; then
+    echo "CPU Usage: $cpu_usage :: $integer_number%"
+
+    if [ $integer_number -gt 60 ]; then
         count=0
         echo "$env 服务器 正常运行, 重置count= $count ，等待 $sleep_time 秒后重新检查"
     else
