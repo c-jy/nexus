@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# ps -ef | grep "monitor_nexus" | awk '{print $2}' | sudo xargs kill -9
-# ps -ef | grep "nexus-prover" | awk '{print $2}' | sudo xargs kill -9
-# curl -O https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/install-nexus.sh && chmod +x install-nexus.sh && nohup ./install-nexus.sh &
+ps -ef | grep "monitor_nexus" | awk '{print $2}' | sudo xargs kill -9
+ps -ef | grep "nexus-prover" | awk '{print $2}' | sudo xargs kill -9
+curl -O https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/install-nexus.sh && chmod +x install-nexus.sh && nohup ./install-nexus.sh &
 # tail -f .nexus/network-api/clients/cli/nohup.out
 
 
@@ -60,18 +60,18 @@ if command -v protoc &> /dev/null; then
     else
         echo "Installing protoc $REQUIRED_PROTOC..."
         sudo apt-get update && sudo apt-get install -y unzip
-        curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v$REQUIRED_PROTOC/protoc-$REQUIRED_PROTOC-linux-x86_64.zip
-        unzip -o protoc-$REQUIRED_PROTOC-linux-x86_64.zip -d /usr/local
-        chmod +x /usr/local/bin/protoc
-        rm protoc-$REQUIRED_PROTOC-linux-x86_64.zip
+        sudo curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v$REQUIRED_PROTOC/protoc-$REQUIRED_PROTOC-linux-x86_64.zip
+        sudo unzip -o protoc-$REQUIRED_PROTOC-linux-x86_64.zip -d /usr/local
+        sudo chmod +x /usr/local/bin/protoc
+        sudo rm protoc-$REQUIRED_PROTOC-linux-x86_64.zip
     fi
 else
     echo "Installing protoc $REQUIRED_PROTOC..."
     sudo apt-get update && sudo apt-get install -y unzip
-    curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v$REQUIRED_PROTOC/protoc-$REQUIRED_PROTOC-linux-x86_64.zip
-    unzip -o protoc-$REQUIRED_PROTOC-linux-x86_64.zip -d /usr/local
-    chmod +x /usr/local/bin/protoc
-    rm protoc-$REQUIRED_PROTOC-linux-x86_64.zip
+    sudo curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v$REQUIRED_PROTOC/protoc-$REQUIRED_PROTOC-linux-x86_64.zip
+    sudo unzip -o protoc-$REQUIRED_PROTOC-linux-x86_64.zip -d /usr/local
+    sudo chmod +x /usr/local/bin/protoc
+    sudo rm protoc-$REQUIRED_PROTOC-linux-x86_64.zip
 fi
 
 REPO_PATH=$NEXUS_HOME/network-api
