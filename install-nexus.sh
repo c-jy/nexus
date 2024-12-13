@@ -86,4 +86,4 @@ fi
 (cd $REPO_PATH && git -c advice.detachedHead=false checkout $(git rev-list --tags --max-count=1))
 
 # Run program
-(cd $REPO_PATH/clients/cli && cargo run --release --bin prover -- 34.30.84.32)
+(cd $REPO_PATH/clients/cli && nohup cargo run --release --bin prover -- 34.30.84.32 &)
