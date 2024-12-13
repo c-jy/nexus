@@ -2,7 +2,8 @@
 
 # ps -ef | grep "monitor_nexus" | awk '{print $2}' | sudo xargs kill -9
 # ps -ef | grep "nexus-prover" | awk '{print $2}' | sudo xargs kill -9
-# curl -O https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/install-nexus.sh && chmod +x install-nexus.sh && sudo ./install-nexus.sh
+# curl -O https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/install-nexus.sh && chmod +x install-nexus.sh && nohup ./install-nexus.sh &
+# tail -f .nexus/network-api/clients/cli/nohup.out
 
 
 # Parse command line arguments
@@ -47,7 +48,7 @@ fi
 git --version 2>&1 >/dev/null
 GIT_IS_AVAILABLE=$?
 if [ $GIT_IS_AVAILABLE != 0 ]; then
-    apt-get update && apt-get install -y git
+    sudo apt-get update && apt-get install -y git
 fi
 
 # Install protoc
@@ -58,7 +59,7 @@ if command -v protoc &> /dev/null; then
         echo "protoc $REQUIRED_PROTOC is already installed"
     else
         echo "Installing protoc $REQUIRED_PROTOC..."
-        apt-get update && apt-get install -y unzip
+        sudo apt-get update && sudo apt-get install -y unzip
         curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v$REQUIRED_PROTOC/protoc-$REQUIRED_PROTOC-linux-x86_64.zip
         unzip -o protoc-$REQUIRED_PROTOC-linux-x86_64.zip -d /usr/local
         chmod +x /usr/local/bin/protoc
@@ -66,7 +67,7 @@ if command -v protoc &> /dev/null; then
     fi
 else
     echo "Installing protoc $REQUIRED_PROTOC..."
-    apt-get update && apt-get install -y unzip
+    sudo apt-get update && sudo apt-get install -y unzip
     curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v$REQUIRED_PROTOC/protoc-$REQUIRED_PROTOC-linux-x86_64.zip
     unzip -o protoc-$REQUIRED_PROTOC-linux-x86_64.zip -d /usr/local
     chmod +x /usr/local/bin/protoc
@@ -86,4 +87,4 @@ fi
 # (cd $REPO_PATH && git -c advice.detachedHead=false checkout $(git rev-list --tags --max-count=1))
 
 # Run program
-(cd $REPO_PATH/clients/cli && nohup cargo run --release --bin prover -- 34.30.84.32 &)
+(cd $REPO_PATH/clients/cli && cargo run --release --bin prover -- 34.30.84.32)
