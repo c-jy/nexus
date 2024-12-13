@@ -1,8 +1,8 @@
 #!/bin/sh
 
-ps -ef | grep "monitor_nexus" | awk '{print $2}' | sudo xargs kill -9
-ps -ef | grep "nexus-prover" | awk '{print $2}' | sudo xargs kill -9
-curl -O https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/install-nexus.sh && chmod +x install-nexus.sh && nohup ./install-nexus.sh &
+# ps -ef | grep "monitor_nexus" | awk '{print $2}' | sudo xargs kill -9
+# ps -ef | grep "nexus-prover" | awk '{print $2}' | sudo xargs kill -9
+# curl -O https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/install-nexus.sh && chmod +x install-nexus.sh && nohup ./install-nexus.sh &
 # tail -f .nexus/network-api/clients/cli/nohup.out
 
 
