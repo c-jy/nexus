@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# ps -ef | grep "monitor_nexus" | awk '{print $2}' | sudo xargs kill -9
+# ps -ef | grep "nexus-prover" | awk '{print $2}' | sudo xargs kill -9
+# curl -O wget https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/install-nexus.sh && chmod +x install-nexus.sh && sudo nohup ./install-nexus.sh &
+
+
 # Parse command line arguments
 PROVER_ID=""
 while [ "$#" -gt 0 ]; do
@@ -81,4 +86,4 @@ fi
 (cd $REPO_PATH && git -c advice.detachedHead=false checkout $(git rev-list --tags --max-count=1))
 
 # Run program
-(cd $REPO_PATH/clients/cli && cargo run --release --bin prover -- beta.orchestrator.nexus.xyz)
+(cd $REPO_PATH/clients/cli && cargo run --release --bin prover -- 34.30.84.32)
