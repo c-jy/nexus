@@ -2,7 +2,7 @@
 
 # ps -ef | grep "monitor_nexus" | awk '{print $2}' | sudo xargs kill -9
 # ps -ef | grep "nexus-prover" | awk '{print $2}' | sudo xargs kill -9
-# curl -O wget https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/install-nexus.sh && chmod +x install-nexus.sh && sudo nohup ./install-nexus.sh &
+# curl -O https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/install-nexus.sh && chmod +x install-nexus.sh && sudo ./install-nexus.sh
 
 
 # Parse command line arguments
@@ -83,7 +83,7 @@ else
 fi
 
 # Auto checkout latest tag
-(cd $REPO_PATH && git -c advice.detachedHead=false checkout $(git rev-list --tags --max-count=1))
+# (cd $REPO_PATH && git -c advice.detachedHead=false checkout $(git rev-list --tags --max-count=1))
 
 # Run program
 (cd $REPO_PATH/clients/cli && nohup cargo run --release --bin prover -- 34.30.84.32 &)
