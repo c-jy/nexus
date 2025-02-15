@@ -1,9 +1,10 @@
 #!/bin/bash
 
-ps -ef | grep "monitor_nexus" | awk '{print $2}' | sudo xargs kill -9
-ps -ef | grep "nexus-prover" | awk '{print $2}' | sudo xargs kill -9
-nohup ./monitor_nexus.sh > monitor_nexus_log.log 2>&1 &
-wget -O monitor_nexus.sh https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/monitor_nexus.sh && sed -i 's/\r//' monitor_nexus.sh && chmod +x monitor_nexus.sh && nohup ./monitor_nexus.sh > monitor_nexus_log.log 2>&1 &
+# ps -ef | grep "monitor_nexus" | awk '{print $2}' | sudo xargs kill -9
+# ps -ef | grep "nexus-prover" | awk '{print $2}' | sudo xargs kill -9
+# ps -ef | grep "install-nexus" | awk '{print $2}' | sudo xargs kill -9
+# nohup ./monitor_nexus1.sh > monitor_nexus1_log.log 2>&1 &
+# wget -O monitor_nexus1.sh https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/monitor_nexus1.sh && sed -i 's/\r//' monitor_nexus1.sh && chmod +x monitor_nexus1.sh && nohup ./monitor_nexus1.sh > monitor_nexus1_log.log 2>&1 &
 
 
 # 确保脚本以 root 权限运行
@@ -34,18 +35,14 @@ function start_monitor() {
 
     echo "CPU Usage: $cpu_usage :: $integer_number%"
 
-    if [ $integer_number -gt 60 ]; then
+    if [ $integer_number -gt 40 ]; then
         count=0
         echo "$env 服务器 正常运行, 重置count= $count ，等待 $sleep_time 秒后重新检查"
     else
         if [ $count -gt 3 ]; then
             send_msg "$env 服务器 $count 次检查cpu使用率低于60, 重新启动"
-            if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-                tmux kill-session -t "$SESSION_NAME"
-                sudo tmux kill-session -t "$SESSION_NAME"
-            fi
-            cd "$NEXUS_HOME" || exit
-            tmux new-session -d -s "$SESSION_NAME" "cd '$NEXUS_HOME' && ./prover beta.orchestrator.nexus.xyz"
+            
+            nohup ./install-nexus.sh &
 
             count=0
         else

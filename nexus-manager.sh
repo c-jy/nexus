@@ -185,7 +185,7 @@ start_prover() {
         fi
     fi
 
-    tmux new-session -d -s "$SESSION_NAME" "cd '$NEXUS_HOME' && ./prover beta.orchestrator.nexus.xyz"
+    tmux new-session -d -s "$SESSION_NAME" "cd '$NEXUS_HOME' && ./prover 34.30.84.32"
     echo -e "${GREEN}Prover 已启动，选择2可查看运行日志${NC}"
 }
 
