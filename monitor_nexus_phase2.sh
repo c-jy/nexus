@@ -3,7 +3,7 @@
 # ps -ef | grep "monitor_nexus" | awk '{print $2}' | sudo xargs kill -9
 # ps -ef | grep "nexus-prover" | awk '{print $2}' | sudo xargs kill -9
 # nohup ./monitor_nexus.sh > monitor_nexus_log.log 2>&1 &
-# wget -O monitor_nexus.sh https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/monitor_nexus_phase2.sh && sed -i 's/\r//' monitor_nexus_phase2.sh && chmod +x monitor_nexus_phase2.sh && nohup ./monitor_nexus_phase2.sh > monitor_nexus_log.log 2>&1 &
+# wget -O monitor_nexus_phase2.sh https://raw.githubusercontent.com/c-jy/nexus/refs/heads/main/monitor_nexus_phase2.sh && sed -i 's/\r//' monitor_nexus_phase2.sh && chmod +x monitor_nexus_phase2.sh && nohup ./monitor_nexus_phase2.sh > monitor_nexus_log.log 2>&1 &
 
 
 # 确保脚本以 root 权限运行
