@@ -20,14 +20,25 @@ count=0
 # PROVER_ID_FILE="$NEXUS_HOME/prover-id"
 # SESSION_NAME="nexus-prover"
 function main() {
+    kill -9 $(ps aux | grep 'monitor' | grep -v grep | awk '{print $2}')
     while true; do
-        start_monitor
+        start_monitor_process
 
         sleep $sleep_time # 检查间隔，这里是2分钟
     done
 }
 
-function start_monitor() {
+function start_monitor_process() {
+    PROCESS_NAME=""
+    if ps aux | grep -v grep | grep -q "$PROCESS_NAME"; then
+        echo "进程 $PROCESS_NAME 正在运行。"
+    else
+        echo "进程 $PROCESS_NAME 未运行， 发送通知。"
+        send_msg "$env 服务器 进程 $PROCESS_NAME 未运行, 需要重新启动"
+    fi
+}
+
+function start_monitor_CPU() {
     cpu_usage=$(top -b -n 1 | grep "Cpu(s)" | awk '{print $2 + $4}')
 
     integer_number=$(echo "$cpu_usage/1" | bc)
