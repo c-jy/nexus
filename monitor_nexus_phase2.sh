@@ -29,7 +29,7 @@ function main() {
 }
 
 function start_monitor_process() {
-    PROCESS_NAME=""
+    PROCESS_NAME="nexus-network"
     if ps aux | grep -v grep | grep -q "$PROCESS_NAME"; then
         echo "进程 $PROCESS_NAME 正在运行。"
     else
