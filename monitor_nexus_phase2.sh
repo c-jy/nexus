@@ -20,7 +20,7 @@ count=0
 # PROVER_ID_FILE="$NEXUS_HOME/prover-id"
 # SESSION_NAME="nexus-prover"
 function main() {
-    kill -9 $(ps aux | grep 'monitor' | grep -v grep | awk '{print $2}')
+    # kill -9 $(ps aux | grep 'monitor' | grep -v grep | awk '{print $2}')
     while true; do
         start_monitor_process
 
